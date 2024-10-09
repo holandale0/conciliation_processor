@@ -7,6 +7,9 @@ target/
 ### Local Environments ###
 .env.local
 
+### sql scripts ###
+src/main/resources/scripts
+
 ### Local Profile ###
 application-local.yml
 application-locallocal.yml
