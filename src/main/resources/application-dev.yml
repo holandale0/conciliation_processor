@@ -1,0 +1,85 @@
+application:
+  name: conciliation-processor
+
+#############################################################################
+## Profile configuration
+#############################################################################
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+#############################################################################
+## Server configuration
+#############################################################################
+
+server:
+  port: 8083
+  compression:
+    enabled: true
+    min-response-size: 1024
+    mime-types: application/json
+
+#############################################################################
+## Scheduler configuration
+#############################################################################
+
+scheduler:
+  cron: ${CRON_TIME}
+  thread:
+    pool:
+      size: 20 #${THREAD_EXECUTOR_MIN_THREADS}
+
+pod:
+  name: ${POD_NAME}
+
+
+#############################################################################
+## Thread Executor configuration
+#############################################################################
+
+thread-executor:
+  min-threads: ${THREAD_EXECUTOR_MIN_THREADS}
+  max-threads: ${THREAD_EXECUTOR_MAX_THREADS}
+  sleep-time: ${THREAD_EXECUTOR_SLEEP_TIME}
+  queue-capacity: ${THREAD_EXECUTOR_QUEUE_CAPACITY}
+
+
+#############################################################################
+## Datasource configuration
+#############################################################################
+
+
+datasource:
+  driver-class-name: org.postgresql.Driver
+
+jdbc:
+  url: ${JDBC_URL}
+  host: ${JDBC_HOST}
+  port: ${JDBC_PORT}
+  database: ${JDBC_DATABASE}
+  username: ${JDBC_USERNAME}
+  password: ${JDBC_PASSWORD}
+  properties:
+    schema: ${JDBC_PROPERTIES_SCHEMA}
+
+
+
+#############################################################################
+## Management configuration
+#############################################################################
+
+logging:
+  level:
+    io.r2dbc.spi: INFO
+    org.springframework.r2dbc.core: INFO
+
+
+#############################################################################
+## OTLP config
+#############################################################################
+otel:
+  exporter:
+    otlp:
+      enabled: false

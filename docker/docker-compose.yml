@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+  conciliation-processor:
+    container_name: conciliation-processor
+    image: postgres:13.6
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sa}
+      PGDATA: /data/postgres
+      POSTGRES_DB: app_conciliation
+      POSTGRES_DATABASE_SCHEMA: public
+    volumes:
+      - appconciliation:/data/postgres
+    ports:
+      - "45440:45432"
+    networks:
+      - appconciliation
+    restart: unless-stopped
+
+networks:
+  appconciliation:
+    driver: bridge
+volumes:
+  appconciliation:
